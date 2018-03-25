@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/NewRetro.iml" filepath="$PROJECT_DIR$/NewRetro.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\etien\Documents\GitHub\RetroApp\android-src\RetroApp.iml" filepath="C:\Users\etien\Documents\GitHub\RetroApp\android-src\RetroApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android-src.iml" filepath="$PROJECT_DIR$/android-src.iml" />
+      <module fileurl="file://C:\Users\user\Documents\Github\RetroApp\android-src\android-src.iml" filepath="C:\Users\user\Documents\Github\RetroApp\android-src\android-src.iml" />
+      <module fileurl="file://C:\Users\user\Documents\Github\RetroApp\android-src\app\android-src-app.iml" filepath="C:\Users\user\Documents\Github\RetroApp\android-src\app\android-src-app.iml" />
+      <module fileurl="file://C:\Users\user\Documents\Github\RetroApp\android-src\app\app.iml" filepath="C:\Users\user\Documents\Github\RetroApp\android-src\app\app.iml" />
     </modules>
   </component>
 </project>

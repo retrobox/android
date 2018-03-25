@@ -1,8 +1,5 @@
 package fr.thingmill.retroapp;
 
-import android.app.Activity;
-import android.content.ClipData;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,16 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
-
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.widget.Button;
-
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -53,7 +40,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
     }
 
     @Override
@@ -94,43 +80,22 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_manual) {
-            WebView myWebView = (WebView) findViewById(R.id.webView);
-            myWebView.loadUrl("https://github.com/retrobox/raspberrypi/wiki/FR-installation-manuelle-retropie");
-                // Handle the camera action
-        } if (id == R.id.nav_game) {
+        if (id == R.id.nav_camera) {
+            // Handle the camera action
+        } else if (id == R.id.nav_gallery) {
 
-        } if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_slideshow) {
 
-        } if (id == R.id.nav_settings) {
+        } else if (id == R.id.nav_manage) {
 
-        } if (id == R.id.nav_share) {
-            try {
-                Intent i = new Intent(Intent.ACTION_SEND);
-                i.setType("text/plain");
-                i.putExtra(Intent.EXTRA_SUBJECT, "RetroApp");
-                String sAux = "\nL'app est vraiment cool je recommande\n\n";
-                sAux = sAux + "https://play.google.com/store/apps/details?id=com.tutozz.rien&hl=fr\n\n";
-                i.putExtra(Intent.EXTRA_TEXT, sAux);
-                startActivity(Intent.createChooser(i, "choose one"));
-            } catch (Exception e) {
-                //e.toString();
-            }
+        } else if (id == R.id.nav_share) {
 
-        } if (id == R.id.nav_send) {
-
-        } if (id == R.id.nav_shopping) {
-
-        } if (id == R.id.nav_about) {
+        } else if (id == R.id.nav_send) {
 
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-
-
-
-
     }
 }
