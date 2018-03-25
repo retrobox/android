@@ -5,6 +5,11 @@
     <header
         android:fragment="fr.thingmill.retroapp.SettingsActivity$GeneralPreferenceFragment"
         android:icon="@drawable/ic_info_black_24dp"
+        android:title="@string/back_to_home" />
+
+    <header
+        android:fragment="fr.thingmill.retroapp.SettingsActivity$GeneralPreferenceFragment"
+        android:icon="@drawable/ic_info_black_24dp"
         android:title="@string/pref_header_general" />
 
     <header
