@@ -5,21 +5,21 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
+            android:id="@+id/nav_manual"
+            android:icon="@drawable/ic_menu_manual"
             android:title="Manuels d'utilisations" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
+            android:id="@+id/nav_game"
+            android:icon="@drawable/ic_menu_game"
             android:title="Conseils sur les Jeux" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Outils" />
+            android:title="Centre de contrôle" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_menu_settings"
+            android:title="Paramètres" />
     </group>
 
     <item android:title="Communiquer">
@@ -31,7 +31,15 @@
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Envoyer un message aux développeurs" />
+                android:title="Message aux développeurs" />
+            <item
+                android:id="@+id/nav_shopping"
+                android:icon="@drawable/ic_menu_shopping"
+                android:title="Acheter une Retrobox" />
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_menu_about"
+                android:title="À propos" />
         </menu>
     </item>
 
