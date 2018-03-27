@@ -1,7 +1,7 @@
 package fr.thingmill.retroapp;
 
 /**
- * Created by etien on 25/03/2018.
+ * Created by etienne on 25/03/2018.
  */
 
 import android.app.Activity;

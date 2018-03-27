@@ -13,7 +13,7 @@ public class MyAppWebViewClient extends WebViewClient {
      * à une chaîne de caractère précise, soit le nom de domaine dans le script suivant
      */
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
-        if(Uri.parse(url).getHost().endsWith("thibautlombard.space")) {
+        if(Uri.parse(url).getHost().endsWith("htps://retroboxconsole.fr")) {
             return false;
         }
 
