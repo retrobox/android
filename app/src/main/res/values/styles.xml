@@ -6,6 +6,17 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorSecondary">@color/colorText3</item>
+        <item name="fontFamily">@font/opensans_semibold</item>
+        <item name="backgroundColor">@color/colorBackground</item>
+        <item name="android:colorForeground">@color/colorText3</item>
+        <item name="android:textSize">13dp</item>
+        <item name="itemIconSize">20dp</item>
+        <item name="colorControlHighlight">@color/blackBlue</item>
+    </style>
+
+    <style name="AppTheme2">
+        <item name="android:textColor">@color/colorText3</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

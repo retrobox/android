@@ -1,45 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_manual"
-            android:icon="@drawable/ic_menu_manual"
-            android:title="Manuels d'utilisations" />
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_dashboard"
+            android:title="@string/menu_dashboard"
+            />
         <item
-            android:id="@+id/nav_game"
-            android:icon="@drawable/ic_menu_game"
-            android:title="Conseils sur les Jeux" />
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_gamepad"
+            android:title="@string/menu_games"/>
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Centre de contrôle" />
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_docs"
+            android:title="@string/menu_docs"/>
         <item
-            android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_menu_settings"
-            android:title="Paramètres" />
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_account"
+            android:title="@string/menu_profile"/>
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/menu_settings" />
     </group>
-
-    <item android:title="Communiquer">
+    <item android:title="COMMUNIQUER"
+        >
         <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Partager" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Message aux développeurs" />
-            <item
-                android:id="@+id/nav_shopping"
-                android:icon="@drawable/ic_menu_shopping"
-                android:title="Acheter une Retrobox" />
-            <item
-                android:id="@+id/nav_about"
-                android:icon="@drawable/ic_menu_about"
-                android:title="À propos" />
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_home"
+                    android:icon="@drawable/ic_share"
+                    android:title="@string/menu_share" />
+                <item
+                    android:id="@+id/nav_gallery"
+                    android:icon="@drawable/ic_send"
+                    android:title="@string/menu_sendmessage"/>
+                <item
+                    android:id="@+id/nav_slideshow"
+                    android:icon="@drawable/ic_shopping"
+                    android:title="@string/menu_buy" />
+                <item
+                    android:id="@+id/nav_slideshow"
+                    android:icon="@drawable/ic_info"
+                    android:title="@string/menu_about" />
+            </group>
         </menu>
     </item>
 
