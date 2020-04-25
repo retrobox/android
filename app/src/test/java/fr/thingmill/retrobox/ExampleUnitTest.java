@@ -1,4 +1,4 @@
-package com.thingmill.retrobox;
+package fr.thingmill.retrobox;
 
 import org.junit.Test;
 

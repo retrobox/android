@@ -1,4 +1,4 @@
-package com.thingmill.retrobox.ui.gallery;
+package fr.thingmill.retrobox.ui.gallery;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.thingmill.retrobox.R;
+import fr.thingmill.retrobox.R;
 
 public class GalleryFragment extends Fragment {
 

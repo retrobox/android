@@ -5,7 +5,7 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "com.thingmill.retrobox"
+        applicationId "fr.thingmill.retrobox"
         minSdkVersion 16
         targetSdkVersion 29
         versionCode 1
@@ -20,6 +20,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    productFlavors {
+      dev {
+          applicationId 'com.chanbo.sampleapp.dev'
+          buildConfigField("String", "APP_MODE", "\"Dev\"")
+      }
+      pro {
+          buildConfigField("String", "APP_MODE", "\"Pro\"")
+      }
+  }
 
 }
 

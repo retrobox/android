@@ -1,4 +1,4 @@
-package com.thingmill.retrobox;
+package fr.thingmill.retrobox;
 
 import android.os.Bundle;
 import android.view.View;

@@ -1,4 +1,4 @@
-package com.thingmill.retrobox;
+package fr.thingmill.retrobox;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.thingmill.retrobox", appContext.getPackageName());
+        assertEquals("fr.thingmill.retrobox", appContext.getPackageName());
     }
 }
