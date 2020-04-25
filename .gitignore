@@ -7,3 +7,6 @@
 /captures
 .externalNativeBuild
 .cxx
+.env
+fastlane/report.xml
+keystore.properties

@@ -48,7 +48,7 @@ references:
   android_dependencies: &android_dependencies
     run:
       name: Download Android Dependencies
-      command: ./gradlew androidDependencies
+      command: chmod +x gradlew && ./gradlew androidDependencies
 
   decode_android_key: &decode_android_key
     run:
