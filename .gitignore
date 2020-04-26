@@ -10,3 +10,9 @@
 .env
 fastlane/report.xml
 keystore.properties
+.settings/org.eclipse.buildship.core.prefs
+keystore_private.jks
+.project
+keystore_upload.jks
+private_key.pepk
+api_key_gpc.json

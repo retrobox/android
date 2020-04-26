@@ -16,31 +16,29 @@ android {
 
     buildTypes {
         release {
-            signingConfig signingConfigs.release
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    signingConfigs {
-        release {
-            keyAlias keyStoreProperties['releaseKeyAlias']
-            keyPassword keyStoreProperties['releaseKeyPassword']
-            storeFile file(keyStoreProperties['releaseKeyStore']
-            storePassword keyStoreProperties['releaseStorePassword']
+
+    allprojects {
+        afterEvaluate { project ->
+            def propsFile = rootProject.file('keystore.properties')
+            def configName = 'release'
+
+            if (propsFile.exists() && android.signingConfigs.hasProperty(configName)) {
+                def props = new Properties()
+                props.load(new FileInputStream(propsFile))
+                android.signingConfigs[configName].storeFile = file(props['releaseKeyStore'])
+                android.signingConfigs[configName].storePassword = props['releaseStorePassword']
+                android.signingConfigs[configName].keyAlias = props['releaseKeyAlias']
+                android.signingConfigs[configName].keyPassword = props['releaseKeyPassword']
+            }
         }
     }
-    productFlavors {
       dev {
-          applicationId 'com.chanbo.sampleapp.dev'
-          buildConfigField("String", "APP_MODE", "\"Dev\"")
-      }
-      pro {
-          buildConfigField("String", "APP_MODE", "\"Pro\"")
-      }
-  }
 
 }
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -51,7 +49,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.2.2'
     implementation 'androidx.navigation:navigation-ui:2.2.2'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
