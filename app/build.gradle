@@ -4,17 +4,15 @@ apply plugin: 'com.google.gms.google-services'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
-
+    flavorDimensions "default"
     defaultConfig {
         applicationId "fr.thingmill.retrobox"
         minSdkVersion 16
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
         release {
             minifyEnabled true
@@ -24,20 +22,17 @@ android {
     dataBinding {
         enabled true
     }
-    flavorDimensions "dev", "beta", "pro"
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     productFlavors {
         dev {
-            applicationId 'fr.thingmill.retrobox'
+            applicationId 'fr.thingmill.retrobox.dev'
             buildConfigField("String", "APP_MODE", "\"Dev\"")
-            dimension "dev"
-        }
-        beta {
-            buildConfigField("String", "APP_MODE", "\"Beta\"")
-            dimension "beta"
         }
         pro {
             buildConfigField("String", "APP_MODE", "\"Pro\"")
-            dimension "pro"
         }
     }
     allprojects {
