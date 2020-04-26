@@ -3,6 +3,10 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'com.google.firebase.firebase-perf'
 
+def keyStorePropertiesFile = rootProject.file("keystore.properties")
+def keyStoreProperties = new Properties()
+keyStoreProperties.load(new FileInputStream(keyStorePropertiesFile))
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -15,8 +19,17 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        release {
+            keyAlias keyStoreProperties['releaseKeyAlias']
+            keyPassword keyStoreProperties['releaseKeyPassword']
+            storeFile file(keyStoreProperties['releaseKeyStore'])
+            storePassword keyStoreProperties['releaseStorePassword']
+        }
+    }
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -35,21 +48,6 @@ android {
         }
         pro {
             buildConfigField("String", "APP_MODE", "\"Pro\"")
-        }
-    }
-    allprojects {
-        afterEvaluate { project ->
-            def propsFile = rootProject.file('keystore.properties')
-            def configName = 'release'
-
-            if (propsFile.exists() && android.signingConfigs.hasProperty(configName)) {
-                def props = new Properties()
-                props.load(new FileInputStream(propsFile))
-                android.signingConfigs[configName].storeFile = file(props['releaseKeyStore'])
-                android.signingConfigs[configName].storePassword = props['releaseStorePassword']
-                android.signingConfigs[configName].keyAlias = props['releaseKeyAlias']
-                android.signingConfigs[configName].keyPassword = props['releaseKeyPassword']
-            }
         }
     }
 }

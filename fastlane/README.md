@@ -31,6 +31,11 @@ Run Unit Tests
 fastlane android instrumentation_tests_testlab
 ```
 Run UI Test in Firebase Test Lab
+### android send_apk_to_discord
+```
+fastlane android send_apk_to_discord
+```
+Send Apk to Discord
 ### android release
 ```
 fastlane android release
