@@ -112,11 +112,11 @@ jobs:
           name: Run instrumentation tests in Firebase Testlab
           command: bundle exec fastlane instrumentation_tests_testlab build_flavor:$BUILD_FLAVOR
 
-      - run:
-          name: Send Debug and Release Apk
-          command: |
-              bundle exec fastlane send_apk_to_slack build_flavor:"Dev" build_type:"Debug"
-              bundle exec fastlane send_apk_to_slack build_flavor:"Pro" build_type:"Release"    
+      #- run:
+      #    name: Send Debug and Release Apk
+      #    command: |
+      #        bundle exec fastlane send_apk_to_discord build_flavor:"Dev" build_type:"Debug"
+      #        bundle exec fastlane send_apk_to_discord build_flavor:"Pro" build_type:"Release"    
       - store_artifacts:
           path: app/build/outputs/apk
           destination: /apk/  
