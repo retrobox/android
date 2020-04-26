@@ -1,17 +1,4 @@
-# This file contains the fastlane.tools configuration
-# You can find the documentation at https://docs.fastlane.tools
-#
-# For a list of all available actions, check out
-#
-#     https://docs.fastlane.tools/actions
-#
-# For a list of all available plugins, check out
-#
-#     https://docs.fastlane.tools/plugins/available-plugins
-#
-
-# Uncomment the line if you want fastlane to automatically update itself
-# update_fastlane
+#RetroBox Fastline file
 
 default_platform(:android)
 
@@ -21,7 +8,7 @@ platform :android do
     gradle(task: "test")
   end
 
-  desc "Submit a new Beta Build to Crashlytics Beta"
+  desc "Submit a new Dev Build to Crashlytics Beta"
   lane :beta do
     gradle(task: "clean assembleRelease")
     crashlytics
@@ -55,10 +42,10 @@ platform :android do
   end
 
   desc "Run UI Test in Firebase Test Lab"
-  lane :instrumentation_tests_testlab do |options|
+    lane :instrumentation_tests_testlab do |options|
     assemble_build(build_flavor:options[:build_flavor], build_type:"Debug")
     @app_apk = Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
-    
+
     assemble_build(build_flavor:options[:build_flavor] + "Debug", build_type:"AndroidTest")
     @android_test_apk = Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
     

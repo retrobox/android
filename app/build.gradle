@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 29
@@ -20,7 +21,25 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
+    dataBinding {
+        enabled true
+    }
+    flavorDimensions "dev", "beta", "pro"
+    productFlavors {
+        dev {
+            applicationId 'fr.thingmill.retrobox'
+            buildConfigField("String", "APP_MODE", "\"Dev\"")
+            dimension "dev"
+        }
+        beta {
+            buildConfigField("String", "APP_MODE", "\"Beta\"")
+            dimension "beta"
+        }
+        pro {
+            buildConfigField("String", "APP_MODE", "\"Pro\"")
+            dimension "pro"
+        }
+    }
     allprojects {
         afterEvaluate { project ->
             def propsFile = rootProject.file('keystore.properties')
@@ -36,11 +55,11 @@ android {
             }
         }
     }
-
 }
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
+    implementation 'com.google.firebase:firebase-analytics:17.4.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.1.0'
