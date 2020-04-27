@@ -53,6 +53,16 @@ platform :android do
         -F channels=\"CDYAFET1A\" -F title=\"" + file_name + "\" -F file=@" + file_path
   end
 
+  desc "Send Apk to Discord (dev branch)"
+  lane :discord_success_dev do |options|
+    sh "curl -H \"Content-Type: application/json\" -X POST -d '{\"username\": \"CircleCI RetroAppDev\", \"content\": \":white_check_mark: Build & unit test réussi pour le dernier commit sur la branche dev\"}' https://discordapp.com/api/webhooks/704127331710664814/ltqUMS3EhRnKq6OczmwqEmRw6GDJz0eNDfyDfA-6k0C_KjE8_NptVVpgHtIZuCTK0nuP"
+  end
+
+  desc "Send Apk to Discord (master branch)"
+  lane :discord_success_pro do |options|
+    sh "curl -H \"Content-Type: application/json\" -X POST -d '{\"username\": \"CircleCI RetroAppPro\", \"content\": \":white_check_mark: Build, Test Unitaire, Deploy réussi pour le dernier commit sur la branche master\"}' https://discordapp.com/api/webhooks/704127331710664814/ltqUMS3EhRnKq6OczmwqEmRw6GDJz0eNDfyDfA-6k0C_KjE8_NptVVpgHtIZuCTK0nuP"
+  end
+
   desc "Release Deployment"
   lane :release do |options|
     assemble_build(build_flavor:"Pro", build_type:"Release")

@@ -112,6 +112,7 @@ jobs:
           name: Run instrumentation tests in Firebase Testlab
           command: bundle exec fastlane instrumentation_tests_testlab build_flavor:$BUILD_FLAVOR
 
+      #At this we can't handle this, we can't send file to a specific discord channel.
       #- run:
       #    name: Send Debug and Release Apk
       #    command: |
@@ -125,7 +126,7 @@ jobs:
           path: firebase/
           destination: /firebase/
 
-  beta_deployment:
+  dev_deployment:
     <<: *android_config
     steps:
       - checkout
@@ -140,8 +141,8 @@ jobs:
       - *create_google_play_key
 
       - run:
-          name: Deploy to Play Store
-          command: bundle exec fastlane beta
+          name: Trigger discord webhook
+          command: bundle exec fastlane discord_success_dev
 
       - store_artifacts:
           path: app/build/outputs/mapping/
@@ -161,11 +162,13 @@ jobs:
       - *save_gradle_cache
       - *save_gems_cache
       - *create_google_play_key
-
-
       - run:
           name: Deploy to Play Store
           command: bundle exec fastlane release
+
+      - run:
+          name: Trigger discord webhook
+          command: bundle exec fastlane discord_success_pro
 
       - store_artifacts:
           path: app/build/outputs/mapping/
@@ -181,7 +184,7 @@ workflows:
           requires:
             - test_unit
 
-      - beta_deployment:
+      - dev_deployment:
           filters:
             branches:
               only:
