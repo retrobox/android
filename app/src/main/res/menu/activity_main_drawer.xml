@@ -19,11 +19,11 @@
             android:icon="@drawable/ic_docs"
             android:title="@string/menu_docs"/>
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_slideshow4"
             android:icon="@drawable/ic_account"
             android:title="@string/menu_profile"/>
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_slideshow5"
             android:icon="@drawable/ic_settings"
             android:title="@string/menu_settings" />
     </group>
@@ -32,19 +32,19 @@
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/nav_home"
+                    android:id="@+id/nav_home2"
                     android:icon="@drawable/ic_share"
                     android:title="@string/menu_share" />
                 <item
-                    android:id="@+id/nav_gallery"
+                    android:id="@+id/nav_gallery2"
                     android:icon="@drawable/ic_send"
                     android:title="@string/menu_sendmessage"/>
                 <item
-                    android:id="@+id/nav_slideshow"
+                    android:id="@+id/nav_slideshow2"
                     android:icon="@drawable/ic_shopping"
                     android:title="@string/menu_buy" />
                 <item
-                    android:id="@+id/nav_slideshow"
+                    android:id="@+id/nav_slideshow3"
                     android:icon="@drawable/ic_info"
                     android:title="@string/menu_about" />
             </group>

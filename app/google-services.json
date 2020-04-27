@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "753810964043",
+    "firebase_url": "https://retrobox-app.firebaseio.com",
+    "project_id": "retrobox-app",
+    "storage_bucket": "retrobox-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:753810964043:android:633380f5ddf9a4779d97ce",
+        "android_client_info": {
+          "package_name": "fr.thingmill.retrobox"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "753810964043-adcp6bs259t2lc9fj2ae03ikdpdarmec.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAcR_WSrLlr9nbokBNMX7dKwbBrB4uffY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "753810964043-adcp6bs259t2lc9fj2ae03ikdpdarmec.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:753810964043:android:d2b01cdb19d27c0a9d97ce",
+        "android_client_info": {
+          "package_name": "fr.thingmill.retrobox.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "753810964043-adcp6bs259t2lc9fj2ae03ikdpdarmec.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAcR_WSrLlr9nbokBNMX7dKwbBrB4uffY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "753810964043-adcp6bs259t2lc9fj2ae03ikdpdarmec.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
