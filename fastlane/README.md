@@ -36,6 +36,16 @@ Run UI Test in Firebase Test Lab
 fastlane android send_apk_to_discord
 ```
 Send Apk to Discord
+### android discord_success_dev
+```
+fastlane android discord_success_dev
+```
+Send Apk to Discord (dev branch)
+### android discord_success_pro
+```
+fastlane android discord_success_pro
+```
+Send Apk to Discord (master branch)
 ### android release
 ```
 fastlane android release
