@@ -47,6 +47,7 @@ android {
             buildConfigField("String", "APP_MODE", "\"Dev\"")
         }
         pro {
+            applicationId 'fr.thingmill.retrobox'
             buildConfigField("String", "APP_MODE", "\"Pro\"")
         }
     }
