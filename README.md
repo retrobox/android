@@ -1,7 +1,7 @@
 # The [RetroBox](https://retrobox.tech) android app 📱
 [![GitHub issues](https://img.shields.io/github/issues/retrobox/android?style=flat-square)](https://github.com/retrobox/android/issues) ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/retrobox/android?style=flat-square)  
 <br>
-**Master build :** [![CircleCI](https://circleci.com/gh/retrobox/android/tree/master.svg?style=svg)](https://circleci.com/gh/retrobox/android/tree/master)  
+**Master build :** [![CircleCI](https://circleci.com/gh/retrobox/android/tree/master.svg?style=svg)](https://circleci.com/gh/retrobox/android/tree/master)
 **Dev build :** [![CircleCI](https://circleci.com/gh/retrobox/android/tree/dev.svg?style=svg)](https://circleci.com/gh/retrobox/android/tree/dev)  
 
 # Infos ❕
