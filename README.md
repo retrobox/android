@@ -4,17 +4,17 @@
 **Master build :** [![CircleCI](https://circleci.com/gh/retrobox/android/tree/master.svg?style=svg)](https://circleci.com/gh/retrobox/android/tree/master)  
 **Dev build :** [![CircleCI](https://circleci.com/gh/retrobox/android/tree/dev.svg?style=svg)](https://circleci.com/gh/retrobox/android/tree/dev)  
 
+# Infos ❕
+
+Download our app on the **Google Play Store** !
+
 <a href="https://retrobox.tech/downloads">
     <img src="https://enlaps.io/wp-content/uploads/2018/10/get-it-on-google-play.png" alt="alt" width="200">
 </a>
 
-Download our app on the Google Play Store !
-
-# Infos ❕
-
 This app is, at this time, only available in french. We will add english support asap.
 
-Compatible with android-api 18 to 29.
+Compatible with android-api **18** to **29**.
 
 This app contains errors trackers, analytics & performance script, by using our app, you agree with the processing of this data. Learn more about privacy [here](https://retrobox.tech/privacy).
 
@@ -38,7 +38,7 @@ Preview will be avaible when a release will be available on the store.
  ### Environment variables
  Please add the files to your project (see in the exemple file to know what to do)
 
- - `.\\.env` # Google Cloud Service account key & others things
+ - `.\.env` # Google Cloud Service account key & others things
  - `.\keystore.properties` # Private keys to sign app with the .jks certificate
  - `.\google-play-key.json` # Private api key for Google Play Console access
  - `.\app\google-services.json` # Firebase api key ([doc](https://firebase.google.com/docs/android/setup))
