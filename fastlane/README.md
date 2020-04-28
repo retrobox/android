@@ -35,7 +35,7 @@ Run UI Test in Firebase Test Lab
 ```
 fastlane android send_apk_to_slack
 ```
-Send Apk to Discord
+Send Apk to Slack
 ### android discord_success_dev
 ```
 fastlane android discord_success_dev

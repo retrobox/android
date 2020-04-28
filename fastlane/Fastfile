@@ -1,5 +1,5 @@
 #RetroBox Fastline file
-
+opt_out_usage
 default_platform(:android)
 
 platform :android do
@@ -61,14 +61,14 @@ desc "Send Apk to Discord (dev branch)"
 lane :discord_success_dev do |options |
     discord_wb = ENV["DISCORD_WEBHOOK"]
     puts discord_wb
-    sh "curl -H \"Content-Type: application/json\" -X POST -d '{\"username\": \"CircleCI RetroAppDev\", \"content\": \":white_check_mark: Build & unit test **réussi** pour le dernier commit sur la branche dev\"}'" + discord_wb
+    sh "curl -H \"Content-Type: application/json\" -X POST -d '{\"username\": \"CircleCI RetroAppDev\", \"content\": \":white_check_mark: Build & unit test **réussi** pour le dernier commit sur la branche dev\"}'" + " " + discord_wb
 end
 
 desc "Send Apk to Discord (master branch)"
 lane :discord_success_pro do |options |
     discord_wb = ENV["DISCORD_WEBHOOK"]
     puts discord_wb
-    sh "curl -H \"Content-Type: application/json\" -X POST -d '{\"username\": \"CircleCI RetroAppPro\", \"content\": \":white_check_mark: Build, Test Unitaire, Deploy **réussi** pour le dernier commit sur la branche master\"}'" + discord_wb
+    sh "curl -H \"Content-Type: application/json\" -X POST -d '{\"username\": \"CircleCI RetroAppPro\", \"content\": \":white_check_mark: Build, Test Unitaire, Deploy **réussi** pour le dernier commit sur la branche master\"}'" + " " + discord_wb
 end
 
 # Same here, we do not use this feature because we don 't have the necessity to beta test our app.
