@@ -4,6 +4,7 @@ default_platform(:android)
 
 platform :android do
 
+#Build and sign the apk
   desc "Assemble Build"
   lane :assemble_build do |options|
     gradle(
@@ -22,6 +23,7 @@ platform :android do
     )
   end
 
+#This test is not crucial, but it's cool to see if our unit test that we made work correctly !
   desc "Run UI Test in Firebase Test Lab"
   lane :instrumentation_tests_testlab do |options|
     assemble_build(build_flavor:options[:build_flavor], build_type:"Debug")
@@ -44,6 +46,7 @@ platform :android do
     )
   end
 
+#As I say in the config.yml, we do not use this feature.
   desc "Send Apk to Discord"
   lane :send_apk_to_discord do |options|
     assemble_build(build_flavor:options[:build_flavor], build_type:options[:build_type])
@@ -53,16 +56,33 @@ platform :android do
         -F channels=\"CDYAFET1A\" -F title=\"" + file_name + "\" -F file=@" + file_path
   end
 
+#I know this is public webhook, doesn't care !
   desc "Send Apk to Discord (dev branch)"
   lane :discord_success_dev do |options|
-    sh "curl -H \"Content-Type: application/json\" -X POST -d '{\"username\": \"CircleCI RetroAppDev\", \"content\": \":white_check_mark: Build & unit test réussi pour le dernier commit sur la branche dev\"}' https://discordapp.com/api/webhooks/704127331710664814/ltqUMS3EhRnKq6OczmwqEmRw6GDJz0eNDfyDfA-6k0C_KjE8_NptVVpgHtIZuCTK0nuP"
+    sh "curl -H \"Content-Type: application/json\" -X POST -d '{\"username\": \"CircleCI RetroAppDev\", \"content\": \":white_check_mark: Build & unit test **réussi** pour le dernier commit sur la branche dev\"}' https://discordapp.com/api/webhooks/704127331710664814/ltqUMS3EhRnKq6OczmwqEmRw6GDJz0eNDfyDfA-6k0C_KjE8_NptVVpgHtIZuCTK0nuP"
   end
 
   desc "Send Apk to Discord (master branch)"
   lane :discord_success_pro do |options|
-    sh "curl -H \"Content-Type: application/json\" -X POST -d '{\"username\": \"CircleCI RetroAppPro\", \"content\": \":white_check_mark: Build, Test Unitaire, Deploy réussi pour le dernier commit sur la branche master\"}' https://discordapp.com/api/webhooks/704127331710664814/ltqUMS3EhRnKq6OczmwqEmRw6GDJz0eNDfyDfA-6k0C_KjE8_NptVVpgHtIZuCTK0nuP"
+    sh "curl -H \"Content-Type: application/json\" -X POST -d '{\"username\": \"CircleCI RetroAppPro\", \"content\": \":white_check_mark: Build, Test Unitaire, Deploy **réussi** pour le dernier commit sur la branche master\"}' https://discordapp.com/api/webhooks/704127331710664814/ltqUMS3EhRnKq6OczmwqEmRw6GDJz0eNDfyDfA-6k0C_KjE8_NptVVpgHtIZuCTK0nuP"
   end
 
+#Same here, we do not use this feature because we don't have the necessity to beta test our app.
+  desc "Beta Deployment"
+  lane :beta do |options|
+    assemble_build(build_flavor:"Beta", build_type:"Release")
+    upload_to_play_store(
+        track: 'beta',
+        apk: Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+    )
+    crashlytics(
+        apk_path:Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH],
+        api_token:'CRASHLYTICS_API_TOKEN',
+        build_secret:'CRASHLYTICS_BUILD_SECRET'
+    )
+  end
+
+#Essential work is here.
   desc "Release Deployment"
   lane :release do |options|
     assemble_build(build_flavor:"Pro", build_type:"Release")
@@ -71,8 +91,8 @@ platform :android do
     )
     crashlytics(
         apk_path:Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH],
-        api_token:'aee4492cf369d809aef43858bff0ebe71598851b',
-        build_secret:'f0ae8fb4562bc616993490b07f6020fd893759e771616704aca9bc8f035f333c'
+        api_token:'CRASHLYTICS_API_TOKEN',
+        build_secret:'CRASHLYTICS_BUILD_SECRET'
     )
   end
 end
