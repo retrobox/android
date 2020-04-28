@@ -66,6 +66,11 @@ references:
       name: Create Google Play Key
       command: echo $GOOGLE_PLAY_KEY > google-play-key.json
 
+  create_dot_env_file: &create_dot_env_file
+    run:
+      name: Move DISCORD_WEBHOOK into .env
+      command: echo $DISCORD_WEBHOOK > .env
+
 jobs:
 
   #Run Unit Test
@@ -140,6 +145,7 @@ jobs:
       - *save_gradle_cache
       - *save_gems_cache
       - *create_google_play_key
+      - *create_dot_env_file
 
       #At this time, we do not need to deploy the beta version, maybe later we will add this feature.
       #- run:
@@ -168,6 +174,7 @@ jobs:
       - *save_gradle_cache
       - *save_gems_cache
       - *create_google_play_key
+      - *create_dot_env_file
 
       - run:
           name: Deploy to Play Store
