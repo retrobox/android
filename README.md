@@ -1,7 +1,8 @@
-# The RetroBox android app
-
+# The [RetroBox](https://retrobox.tech) android app 📱
+[![GitHub issues](https://img.shields.io/github/issues/retrobox/android?style=flat-square)](https://github.com/retrobox/android/issues) ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/retrobox/android?style=flat-square)  
+<br>
 **Master build :** [![CircleCI](https://circleci.com/gh/retrobox/android/tree/master.svg?style=svg)](https://circleci.com/gh/retrobox/android/tree/master)  
-**Dev build :** [![CircleCI](https://circleci.com/gh/retrobox/android/tree/dev.svg?style=svg)](https://circleci.com/gh/retrobox/android/tree/dev)
+**Dev build :** [![CircleCI](https://circleci.com/gh/retrobox/android/tree/dev.svg?style=svg)](https://circleci.com/gh/retrobox/android/tree/dev)  
 
 <a href="https://retrobox.tech/downloads">
     <img src="https://enlaps.io/wp-content/uploads/2018/10/get-it-on-google-play.png" alt="alt" width="200">
@@ -9,23 +10,23 @@
 
 Download our app on the Google Play Store !
 
----
+# Infos ❕
 
-This app is, at this time, only avaible in french. We will add english support asap.
+This app is, at this time, only available in french. We will add english support asap.
 
 Compatible with android-api 18 to 29.
 
-This app contains errors trackers, analytics & performance script, by using our app, you agree with the processing of this data. Lear more about privacy [here](https://retrobox.tech/privacy).
+This app contains errors trackers, analytics & performance script, by using our app, you agree with the processing of this data. Learn more about privacy [here](https://retrobox.tech/privacy).
 
-# Preview
+# Preview 📷 
 
 Preview will be avaible when a release will be available on the store.
 
-# Build and environment needed
+# Build and environment needed 🔨 
 
 ### Software preparation
 
- To build our app you will need to install JDK 1.8 (can be found [here](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html)) and [Ruby](https://rubyinstaller.org/downloads/) installed on your computer. This app can be build on windows and linux without issue (just remove sudo before all commands for windows).
+ To build our app you will need to install [JDK 1.8](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html) and [Ruby](https://rubyinstaller.org/downloads/) installed on your computer. This app can be build on windows and linux without issue (just remove sudo before all commands for windows).
 
 ### Setup
 
@@ -37,15 +38,15 @@ Preview will be avaible when a release will be available on the store.
  ### Environment variables
  Please add the files to your project (see in the exemple file to know what to do)
 
- - .\\.env # Google Cloud Service account key & others things
- - .\keystore.properties # Private keys to sign app with the .jks certificate
- - .\api.key_gpc.json # Private api key for Google Play Console access
- - .\app\google-services.json # Firebase api key ([doc](https://firebase.google.com/docs/android/setup))
- - .\app\keystore_private.jks # Private android studio certificate ([doc](https://developer.android.com/studio/publish/app-signing))
+ - `.\\.env` # Google Cloud Service account key & others things
+ - `.\keystore.properties` # Private keys to sign app with the .jks certificate
+ - `.\google-play-key.json` # Private api key for Google Play Console access
+ - `.\app\google-services.json` # Firebase api key ([doc](https://firebase.google.com/docs/android/setup))
+ - `.\app\keystore_private.jks` # Private android studio certificate ([doc](https://developer.android.com/studio/publish/app-signing))
 
 ### Build
 
-⚠️ Be aware, here are several types of build:  
+⚠️ Be aware, here are several types of build flavours :  
 
 - devDebug # Debug the dev version (log everything)
 - devRelease # (we do not use this build)
@@ -53,23 +54,26 @@ Preview will be avaible when a release will be available on the store.
 - proRelease # The version who will be pushed to Google Play Store
 
 Examples :  
-- build_flavor -> debug or release
-- build_type -> pro or dev
+- build_flavor -> `debug` or `release`
+- build_type -> `pro` or `dev`
 
+*[Only in the case you want to work with Fastlane]*  
 After adding all your env files, run :
 
-- ```sudo bundle exec fastlane supply init```
+- ```sudo bundle exec fastlane supply```
 
 This will synchronize with the GPC, all metadatas.
+
+Before making a build you need to clean gradlew with : `./gradlew clean build`
 
 Next, just choose to the left tab "Build variants" the type of version you want to build in Android Sutdio, then run build.  
 You can also use these commands :
 
 - ```bundle exec fastlane assemble_build build_flavor:"YourBuildFlavor" build_type:"YourBuildType"```
 
-- ```sudo ./gradlew build``` # This is a hard build, this will work, but we do not recommend to use it.
+- ```sudo ./gradlew build``` # If you want to work with gradlew CLI.
 
-## Autonomous deploy explanation
+## Autonomous deploy explanation 🔄
 
 ### Fastlane ```.\fastlane```
 

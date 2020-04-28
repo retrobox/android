@@ -4,95 +4,178 @@ default_platform(:android)
 
 platform :android do
 
-#Build and sign the apk
-  desc "Assemble Build"
-  lane :assemble_build do |options|
-    gradle(
-      task: "assemble",
-      flavor: options[:build_flavor],
-      build_type: options[:build_type]
+  # Build and sign the apk
+desc "Assemble Build"
+lane :assemble_build do |options |
+  gradle(
+    task: "assemble",
+    flavor: options[:build_flavor],
+    build_type: options[:build_type]
+  )
+end
+
+desc "Run Unit Tests"
+lane :unit_tests do |options |
+  gradle(
+    task: "test",
+    flavor: options[:build_flavor],
+    build_type: options[:build_type]
+  )
+end
+
+# This test is not crucial, but it 's cool to see if our unit test that we made work correctly !
+desc "Run UI Test in Firebase Test Lab"
+lane :instrumentation_tests_testlab do |options |
+  assemble_build(build_flavor: options[:build_flavor], build_type: "Debug")
+  @app_apk = Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+
+  assemble_build(build_flavor: options[:build_flavor] + "Debug", build_type: "AndroidTest")
+  @android_test_apk = Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+
+  run_tests_firebase_testlab(
+    project_id: "retrobox-app",
+    app_apk: @app_apk,
+    android_test_apk: @android_test_apk,
+    devices: [{
+      model: "Nexus6P",
+      version: "27"
+    }],
+    delete_firebase_files: true
+  )
+end
+
+# As I say in the config.yml, we do not use this feature.
+desc "Send Apk to Slack"
+lane :send_apk_to_slack do |options |
+  assemble_build(build_flavor: options[:build_flavor], build_type: options[:build_type])
+  file_path = Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+  file_name = options[:build_flavor] + " " + options[:build_type]
+  slack_token = ENV["SLACK_API_TOKEN"]
+  puts slack_token
+  sh "curl https://slack.com/api/files.upload -F token=" + slack_token + "\
+  -F channels=\"CDYAFET1A\" -F title=\"" + file_name + "\" -F file=@" + file_path
+end
+
+# Put your discord webhook in .env file
+desc "Send Apk to Discord (dev branch)"
+lane :discord_success_dev do |options |
+    discord_wb = ENV["DISCORD_WEBHOOK"]
+    puts discord_wb
+    sh "curl -H \"Content-Type: application/json\" -X POST -d '{\"username\": \"CircleCI RetroAppDev\", \"content\": \":white_check_mark: Build & unit test **réussi** pour le dernier commit sur la branche dev\"}'" + discord_wb
+end
+
+desc "Send Apk to Discord (master branch)"
+lane :discord_success_pro do |options |
+    discord_wb = ENV["DISCORD_WEBHOOK"]
+    puts discord_wb
+    sh "curl -H \"Content-Type: application/json\" -X POST -d '{\"username\": \"CircleCI RetroAppPro\", \"content\": \":white_check_mark: Build, Test Unitaire, Deploy **réussi** pour le dernier commit sur la branche master\"}'" + discord_wb
+end
+
+# Same here, we do not use this feature because we don 't have the necessity to beta test our app.
+desc "Beta Deployment"
+lane :beta do |options |
+  assemble_build(build_flavor: "Beta", build_type: "Release")
+  upload_to_play_store(
+    track: 'beta',
+    apk: Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+  )
+  # DEPRECATED
+  # crashlytics(
+  #  apk_path: Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH],
+  #  api_token: ENV["CRASHLYTICS_API_TOKEN"],
+  #  build_secret: ENV["CRASHLYTICS_BUILD_SECRET"]
+  # )
+end
+
+# Essential work is here.
+desc "Release Deployment"
+lane :release do |options |
+  assemble_build(build_flavor: "Pro", build_type: "Release")
+  upload_to_play_store(
+    apk: Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+  )
+  # DEPRECATED
+  # crashlytics(
+  #  apk_path: Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH],
+  #  api_token: ENV["CRASHLYTICS_API_TOKEN"],
+  #  build_secret: ENV["CRASHLYTICS_BUILD_SECRET"]
+  # )
+end
+
+# Future features
+
+# Send the apk to the release tab of the repo.
+
+# Compute the app version,
+desc "Compute version"
+lane :computeVersion do |options |
+    File.open("../build.gradle", "r") do |f |
+      text = f.read
+      #everything between Document and Authors
+      major = text.match(/def versionMajor = ([0-9]*)$/)
+      minor = text.match(/def versionMinor = ([0-9]*)$/)
+      patch = text.match(/def versionPatch = ([0-9]*)$/)
+      build = text.match(/def versionBuild = ([0-9]*).*$/)
+
+      majorInt = major[1].to_i
+      minorInt = minor[1].to_i
+      patchInt = patch[1].to_i
+      buildInt = build[1].to_i
+
+      versionCode = majorInt * 10000000 + minorInt * 10000 + patchInt * 100 + buildInt
+
+      if buildInt > 89
+        name = major[1] + "." + minor[1] + "." + patch[1]
+        tag = "stable-" + major[1] + "." + minor[1] + "." + patch[1]
+        branch = "stable-" + major[1] + "." + minor[1]
+      elsif buildInt > 50
+        name = major[1] + "." + minor[1] + "." + patch[1] + " Pro" + (buildInt - 50).to_s
+        tag = "rc-" + major[1] + "." + minor[1] + "." + patch[1] + "-" + format('%02d', (buildInt - 50))
+        branch = "stable-" + major[1] + "." + minor[1]
+      else
+        name = major[1] + "." + minor[1] + "." + patch[1] + " Dev " + format('%02d', (buildInt + 1))
+        tag = "/"
+        branch = "stable-" + major[1] + "." + minor[1]
+      end
+
+      print "VersionCode: " + versionCode.to_s + "\n"
+      print "Name: " + name + "\n"
+      print "Tag: " + tag + "\n"
+      print "Branch: " + branch + "\n"
+      print "\ndisable IPv6 to upload to Gplay!!!\n"
+
+      answer = prompt(text: "is this okay?", boolean: true)
+
+      if !answer
+        exit
+      end
+      {
+        "versionCode" => versionCode.to_s, "versionName" => name, "tag" => tag, "branch" => branch
+      }
+  end
+end
+
+lane :tag do |options |
+    add_git_tag(
+      tag: options["tag"],
+      sign: true
     )
-  end
+  push_git_tags(
+    tag: options["tag"])
+end
 
-  desc "Run Unit Tests"
-  lane :unit_tests do |options|
-    gradle(
-      task: "test",
-      flavor: options[:build_flavor],
-      build_type: options[:build_type]
-    )
-  end
-
-#This test is not crucial, but it's cool to see if our unit test that we made work correctly !
-  desc "Run UI Test in Firebase Test Lab"
-  lane :instrumentation_tests_testlab do |options|
-    assemble_build(build_flavor:options[:build_flavor], build_type:"Debug")
-    @app_apk = Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
-
-    assemble_build(build_flavor:options[:build_flavor] + "Debug", build_type:"AndroidTest")
-    @android_test_apk = Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
-    
-    run_tests_firebase_testlab(
-      project_id:"retrobox-app",
-      app_apk: @app_apk,
-      android_test_apk: @android_test_apk,
-      devices: [
-        {
-            model: "Nexus6P",
-            version: "27"
-        }
-      ], 
-      delete_firebase_files: true
-    )
-  end
-
-#As I say in the config.yml, we do not use this feature.
-  desc "Send Apk to Discord"
-  lane :send_apk_to_discord do |options|
-    assemble_build(build_flavor:options[:build_flavor], build_type:options[:build_type])
-    file_path = Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
-    file_name = options[:build_flavor] + " " + options[:build_type]
-    sh "curl https://slack.com/api/files.upload -F token=\"xoxp-474526796610-473921783169-569292002371-90110c5e994a82f40efdae07038996a1\" \
-        -F channels=\"CDYAFET1A\" -F title=\"" + file_name + "\" -F file=@" + file_path
-  end
-
-#I know this is public webhook, doesn't care !
-  desc "Send Apk to Discord (dev branch)"
-  lane :discord_success_dev do |options|
-    sh "curl -H \"Content-Type: application/json\" -X POST -d '{\"username\": \"CircleCI RetroAppDev\", \"content\": \":white_check_mark: Build & unit test **réussi** pour le dernier commit sur la branche dev\"}' https://discordapp.com/api/webhooks/704127331710664814/ltqUMS3EhRnKq6OczmwqEmRw6GDJz0eNDfyDfA-6k0C_KjE8_NptVVpgHtIZuCTK0nuP"
-  end
-
-  desc "Send Apk to Discord (master branch)"
-  lane :discord_success_pro do |options|
-    sh "curl -H \"Content-Type: application/json\" -X POST -d '{\"username\": \"CircleCI RetroAppPro\", \"content\": \":white_check_mark: Build, Test Unitaire, Deploy **réussi** pour le dernier commit sur la branche master\"}' https://discordapp.com/api/webhooks/704127331710664814/ltqUMS3EhRnKq6OczmwqEmRw6GDJz0eNDfyDfA-6k0C_KjE8_NptVVpgHtIZuCTK0nuP"
-  end
-
-#Same here, we do not use this feature because we don't have the necessity to beta test our app.
-  desc "Beta Deployment"
-  lane :beta do |options|
-    assemble_build(build_flavor:"Beta", build_type:"Release")
-    upload_to_play_store(
-        track: 'beta',
-        apk: Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
-    )
-    crashlytics(
-        apk_path:Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH],
-        api_token:'CRASHLYTICS_API_TOKEN',
-        build_secret:'CRASHLYTICS_BUILD_SECRET'
-    )
-  end
-
-#Essential work is here.
-  desc "Release Deployment"
-  lane :release do |options|
-    assemble_build(build_flavor:"Pro", build_type:"Release")
-    upload_to_play_store(
-        apk: Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
-    )
-    crashlytics(
-        apk_path:Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH],
-        api_token:'CRASHLYTICS_API_TOKEN',
-        build_secret:'CRASHLYTICS_BUILD_SECRET'
+desc "Deploy release to Github"
+lane :createGithubRelease do |options |
+    set_github_release(
+      repository_name: "retrobox/android",
+      api_token: ENV["FASTLANE_RETROBOX_GITHUB_API_TOKEN"],
+      #name: options["versionName"],
+      name: "test",
+      #tag_name: options["tag"],
+      tag_name: "2.0",
+      description: (File.read("metadata/android/fr-FR/changelogs/" + options["versionCode"] + ".txt") rescue "No changelog provided"),
+      commitish: "master",
+      upload_assets: [Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]]
     )
   end
 end

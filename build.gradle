@@ -15,6 +15,12 @@ buildscript {
     }
 }
 
+// semantic versioning for version code
+def versionMajor = 1
+def versionMinor = 10
+def versionPatch = 0
+def versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
+
 allprojects {
     repositories {
         google()

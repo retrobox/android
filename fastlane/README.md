@@ -31,9 +31,9 @@ Run Unit Tests
 fastlane android instrumentation_tests_testlab
 ```
 Run UI Test in Firebase Test Lab
-### android send_apk_to_discord
+### android send_apk_to_slack
 ```
-fastlane android send_apk_to_discord
+fastlane android send_apk_to_slack
 ```
 Send Apk to Discord
 ### android discord_success_dev
@@ -46,11 +46,31 @@ Send Apk to Discord (dev branch)
 fastlane android discord_success_pro
 ```
 Send Apk to Discord (master branch)
+### android beta
+```
+fastlane android beta
+```
+Beta Deployment
 ### android release
 ```
 fastlane android release
 ```
 Release Deployment
+### android computeVersion
+```
+fastlane android computeVersion
+```
+Compute version
+### android tag
+```
+fastlane android tag
+```
+
+### android createGithubRelease
+```
+fastlane android createGithubRelease
+```
+Deploy release to Github
 
 ----
 

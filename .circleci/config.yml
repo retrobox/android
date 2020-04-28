@@ -112,12 +112,12 @@ jobs:
           name: Run instrumentation tests in Firebase Testlab
           command: bundle exec fastlane instrumentation_tests_testlab build_flavor:$BUILD_FLAVOR
 
-      #At this we can't handle this, we can't send file to a specific discord channel.
+      # For now we don't use Slack, maybe in the future, so we keept this.
       #- run:
       #    name: Send Debug and Release Apk
       #    command: |
-      #        bundle exec fastlane send_apk_to_discord build_flavor:"Dev" build_type:"Debug"
-      #        bundle exec fastlane send_apk_to_discord build_flavor:"Pro" build_type:"Release"
+      #        bundle exec fastlane send_apk_to_slack build_flavor:"Dev" build_type:"Debug"
+      #        bundle exec fastlane send_apk_to_slack build_flavor:"Pro" build_type:"Release"
 
       - store_artifacts:
           path: app/build/outputs/apk
