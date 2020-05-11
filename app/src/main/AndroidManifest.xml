@@ -9,6 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="io.sentry.dsn"
+            android:value="https://ac159141095b4ae595d6c21edbbafc64@o315435.ingest.sentry.io/5236462" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"

@@ -18,6 +18,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [SENTRY_DSN: "$System.env.SENTRY_DSN"]
     }
     signingConfigs {
         release {
@@ -47,12 +48,14 @@ android {
             buildConfigField("String", "APP_MODE", "\"Dev\"")
         }
         pro {
+            applicationId 'fr.thingmill.retrobox'
             buildConfigField("String", "APP_MODE", "\"Pro\"")
         }
     }
 }
 
 dependencies {
+    implementation 'io.sentry:sentry-android:2.0.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.google.firebase:firebase-perf:19.0.7'
     implementation 'com.google.firebase:firebase-analytics:17.4.0'
